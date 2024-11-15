@@ -1,0 +1,37 @@
+CREATE TABLE department (
+id INT PRIMARY KEY AUTO_INCREMENT,
+name VARCHAR(255) NOT NULL
+);
+INSERT INTO department (name) VALUES ('Security');
+INSERT INTO department (name) VALUES ('Network');
+
+CREATE TABLE employee (
+id INT PRIMARY KEY AUTO_INCREMENT,
+name VARCHAR(255) NOT NULL
+salary DECIMAL (10,2),
+hiredate Date,
+birthdate Date,
+department_id INT,
+FOREIGN KEY (department_id) REFERENCES department(id)
+);
+INSERT INTO employee (name,salary,hiredate,birthdate,department_id)
+VALUES ('Mahsa',20000,'2022-01-04','1998-10-08',(SELECT id FROM department WHERE name= 'Network'));
+INSERT INTO employee (name,salary,hiredate,birthdate,department_id)
+VALUES ('Ehsan',75000,'2015-05-12','1997-11-04',(SELECT id FROM department WHERE name= 'Security));
+INSERT INTO employee (name,salary,hiredate,birthdate,department_id)
+VALUES ('Vida',5000,'2020-01-05','2020-04-01',(SELECT id FROM department WHERE name= 'Network'));
+INSERT INTO employee (name,salary,hiredate,birthdate,department_id)
+VALUES ('Majid',4500,'2023-11-09','1940-11-12',(SELECT id FROM department WHERE name= 'Security'));
+
+SELECT e.*
+FROM employee e
+JOIN department d ON e.deprtment_id  = d.id
+WHERE d.name = 'Network';
+
+SELECT *
+FROM employee 
+WHERE salary>10000;
+
+SELECT *
+FROM employee 
+ORDER BY name;
